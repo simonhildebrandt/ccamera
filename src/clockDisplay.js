@@ -64,6 +64,10 @@ export default function ClockDisplay({clockId}){
     navigate(`/clock/${clockId}`);
   }
 
+  function goHome() {
+    navigate(`/`);
+  }
+
   return <Box
     className={classes.fullSize}
     bgcolor="common.black"
@@ -80,7 +84,10 @@ export default function ClockDisplay({clockId}){
 
     <FlexBox position="absolute" width="100%" bottom="0" row>
       <FlexBox margin={1} row alignItems="center">
-        <Button style={{color: "white"}}>Home</Button>
+        <Button
+          style={{color: "white"}}
+          onClick={goHome}
+        >Home</Button>
         { <FlexBox
           row
           justifyContent="flex-end"
