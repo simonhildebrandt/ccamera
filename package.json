@@ -7,7 +7,8 @@
   "scripts": {
     "serve": "live-server --port=9000 --host=localhost public/",
     "build": "browserify src/index.js -o public/index.js -t [ babelify ]",
-    "watch": "watchify src/index.js -o public/index.js -t [ babelify ]"
+    "watch": "watchify src/index.js -o public/index.js -t [ babelify ]",
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",

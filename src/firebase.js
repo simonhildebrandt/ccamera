@@ -22,7 +22,7 @@ const storage = firebase.storage();
 
 const auth = firebase.auth;
 
-const FirebaseContext = createContext([false, db]);
+const FirebaseContext = createContext([false, null]);
 
 export const objectFromDocs = snapshot => {
   const hash = {};

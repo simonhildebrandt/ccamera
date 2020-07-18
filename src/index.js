@@ -4,7 +4,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 
-import { db, auth, FirebaseContext } from './firebase';
+import { db, auth, useAuthChanged, FirebaseContext } from './firebase';
 import { router, NavigationContext } from './navigation';
 // import { uploader, UploadContext } from './upload';
 
@@ -14,7 +14,7 @@ import Interface from './interface';
 const App = () => {
   const [user, setUser] = useState(false);
 
-  auth().onAuthStateChanged(async function(newUser) {
+  useAuthChanged(async function(newUser) {
     if (newUser) {
       const { displayName, email } = newUser;
 
@@ -42,6 +42,9 @@ const App = () => {
     }).
     on('/clock/:clockId', function({clockId}) {
       setNavHash({clockId})
+    }).
+    on('/admin', function() {
+      setNavHash({admin: true})
     }).
     resolve();
   }, [])
