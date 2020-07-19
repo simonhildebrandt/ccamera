@@ -43,14 +43,14 @@ const uiConfig = {
 };
 
 function feedbackText() {
-  return <>ClockCamera is a personal project of <Link
+  return <>ClockCamera is a personal project of <Link target="_blank"
   href="http://simonhildebrandt.com">Simon Hildebrandt</Link> -
   created originally to share with his son and daughter, and friends.
   <br/><br/>
   If you find it useful, or have useful thoughts to share, he'd love to hear
-  from you at <Link href="mailto:simonhildebrandt@gmail.com">
+  from you at <Link target="_blank" href="mailto:simonhildebrandt@gmail.com">
   simonhildebrandt@gmail.com</Link> - and if you *really* liked it he'd greatly
-  appreciate any <Link href="https://paypal.me/SimonHildebrandt">
+  appreciate any <Link target="_blank" href="https://paypal.me/SimonHildebrandt">
   donation</Link> towards the cost of keeping it running.
   </>;
 }
