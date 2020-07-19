@@ -17,12 +17,25 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import TimeIcon from '@material-ui/icons/AccessTime';
 import HelpIcon from '@material-ui/icons/Help';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 import FlexBox from './flexBox';
 
 import {
   db, objectFromDocs, useFirestoreCollection, useFirestoreDocument, FirebaseContext
 } from './firebase';
 import { navigate } from './navigation';
+
+
+const styles = makeStyles({
+  image: {
+    width: 100,
+    height: 100,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'contain',
+  }
+});
 
 
 export default function Clocks() {
@@ -138,6 +151,8 @@ export default function Clocks() {
 }
 
 function ClockItem({clockId, showClock, deleteClock, displayClock}) {
+  const classes = styles();
+
   const [ user ] = useContext(FirebaseContext);
   const clock = useFirestoreDocument(`users/${user.uid}/clocks/${clockId}`);
   const images = useFirestoreCollection(`users/${user.uid}/clocks/${clockId}/images`, ['deletedAt', '==', null]);
@@ -178,10 +193,9 @@ function ClockItem({clockId, showClock, deleteClock, displayClock}) {
       >
         { Object.entries(images).map(([imageId, image]) => (
           <Box
+            className={classes.image}
             key={imageId.toString()}
             style={{backgroundImage: `url(${image.url})`}}
-            width={100}
-            height={100}
           />
         ))}
       </FlexBox>
