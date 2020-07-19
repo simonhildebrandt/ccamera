@@ -10,7 +10,13 @@
     "watch": "watchify src/index.js -o public/index.js -t [ babelify ]",
     "deploy": "firebase deploy"
   },
+  "security-notes": {
+    "lodash@^4.17.19": "https://github.com/simonhildebrandt/ccamera/network/alert/yarn.lock/lodash/open",
+    "websocket-extensions@^0.1.4": "https://github.com/simonhildebrandt/ccamera/network/alert/yarn.lock/websocket-extensions/open"
+  },
   "dependencies": {
+    "lodash": "^4.17.19",
+    "websocket-extensions": "^0.1.4",
     "@babel/core": "^7.9.0",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
     "@babel/polyfill": "^7.8.7",
