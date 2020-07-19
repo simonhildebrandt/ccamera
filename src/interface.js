@@ -5,6 +5,14 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import Link from '@material-ui/core/Link';
+import Fab from '@material-ui/core/Fab';
+import FavouriteIcon from '@material-ui/icons/Favorite';
 import { makeStyles } from '@material-ui/core/styles';
 
 import FlexBox from './flexBox';
@@ -34,6 +42,18 @@ const uiConfig = {
   }
 };
 
+function feedbackText() {
+  return <>ClockCamera is a personal project of <Link
+  href="http://simonhildebrandt.com">Simon Hildebrandt</Link> -
+  created originally to share with his son and daughter, and friends.
+  <br/><br/>
+  If you find it useful, or have useful thoughts to share, he'd love to hear
+  from you at <Link href="mailto:simonhildebrandt@gmail.com">
+  simonhildebrandt@gmail.com</Link> - and if you *really* liked it he'd greatly
+  appreciate any <Link href="https://paypal.me/SimonHildebrandt">
+  donation</Link> towards the cost of keeping it running.
+  </>;
+}
 
 const styles = makeStyles({
   fullSize: {
@@ -65,13 +85,10 @@ const Interface = () => {
 
   const [user, loggedIn] = useContext(FirebaseContext);
   const [showLogin, setShowLogin] = useState(false);
+  const [showingFeedback, setShowingFeedback] = useState(false);
 
   const navHash = useContext(NavigationContext);
   const { clockId, display, admin } = navHash;
-
-  // Still need?!
-  const uiRef = useRef();
-  const handleUICallback = ui => uiRef.current = ui;
 
   useAuthChanged(newUser => {
     setShowLogin(false);
@@ -86,6 +103,13 @@ const Interface = () => {
   const handleLogout = () => {
     logout();
   };
+
+  function closeFeedback() {
+    setShowingFeedback(false);
+  }
+  function showFeedback() {
+    setShowingFeedback(true);
+  }
 
   if (clockId && display) return <ClockDisplay clockId={clockId}/>
 
@@ -105,7 +129,7 @@ const Interface = () => {
       { !loggedIn && <Button style={{color: "white"}} onClick={() => setShowLogin(true)}>Login</Button> }
 
       { showLogin && <div>
-          <StyledFirebaseAuth uiCallback={handleUICallback} uiConfig={uiConfig} firebaseAuth={auth()} />
+          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />
         </div>
       }
 
@@ -114,7 +138,23 @@ const Interface = () => {
     </FlexBox>
 
     { loggedIn ? (<FlexBox className={classes.expanded}>
+
       { appView() }
+
+      <Dialog open={showingFeedback} onClose={closeFeedback}>
+        <DialogTitle>About</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{ feedbackText() }</DialogContentText>
+        </DialogContent>
+        <DialogActions><Button onClick={closeFeedback}>Close</Button></DialogActions>
+      </Dialog>
+
+      <Box position="absolute" left={16} bottom={16}>
+        <Fab color="secondary" aria-label="feedback" onClick={showFeedback}>
+          <FavouriteIcon />
+        </Fab>
+      </Box>
+
       </FlexBox>) : (
         <WelcomeMessage/>
       )
