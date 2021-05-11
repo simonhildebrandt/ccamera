@@ -15,7 +15,7 @@
     "websocket-extensions@^0.1.4": "https://github.com/simonhildebrandt/ccamera/network/alert/yarn.lock/websocket-extensions/open"
   },
   "dependencies": {
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "websocket-extensions": "^0.1.4",
     "@babel/core": "^7.9.0",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
